@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Filter, Search, Grid, List } from 'lucide-react';
+import { Filter, Search, Grid, List, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -108,42 +108,61 @@ const Products = () => {
     });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
       <Header />
       
-      <div className="pt-24 pb-12">
+      {/* Animated Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900 to-black"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-600/20 via-transparent to-transparent"></div>
+        
+        {/* Floating Gradient Orbs */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-2xl animate-float"></div>
+        <div className="absolute bottom-32 right-16 w-40 h-40 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-br from-cyan-500/25 to-blue-500/25 rounded-full blur-2xl animate-float" style={{animationDelay: '1s'}}></div>
+      </div>
+      
+      <div className="relative z-10 pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Header */}
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Products</h1>
-            <p className="text-xl text-gray-600">
-              Discover our complete range of premium nutrition supplements
+          <div className="mb-12 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-full backdrop-blur-sm mb-6">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-medium text-purple-300">Premium Collection</span>
+            </div>
+            <h1 className="text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+                Our Products
+              </span>
+            </h1>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Discover our complete range of premium nutrition supplements designed for champions
             </p>
           </div>
 
           {/* Filters and Search */}
-          <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-            <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 mb-12 hover:border-white/20 transition-all duration-500">
+            <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <Input
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  className="pl-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400/50 h-12 rounded-xl"
                 />
               </div>
 
               <div className="flex flex-wrap gap-4 items-center">
                 {/* Category Filter */}
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-48 bg-white/10 border-white/20 text-white h-12 rounded-xl">
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-slate-900 border-white/20">
                     {categories.map(category => (
-                      <SelectItem key={category.value} value={category.value}>
+                      <SelectItem key={category.value} value={category.value} className="text-white hover:bg-white/10">
                         {category.label}
                       </SelectItem>
                     ))}
@@ -152,25 +171,25 @@ const Products = () => {
 
                 {/* Sort */}
                 <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="w-48">
+                  <SelectTrigger className="w-48 bg-white/10 border-white/20 text-white h-12 rounded-xl">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="popular">Most Popular</SelectItem>
-                    <SelectItem value="price-low">Price: Low to High</SelectItem>
-                    <SelectItem value="price-high">Price: High to Low</SelectItem>
-                    <SelectItem value="rating">Highest Rated</SelectItem>
-                    <SelectItem value="name">Name A-Z</SelectItem>
+                  <SelectContent className="bg-slate-900 border-white/20">
+                    <SelectItem value="popular" className="text-white hover:bg-white/10">Most Popular</SelectItem>
+                    <SelectItem value="price-low" className="text-white hover:bg-white/10">Price: Low to High</SelectItem>
+                    <SelectItem value="price-high" className="text-white hover:bg-white/10">Price: High to Low</SelectItem>
+                    <SelectItem value="rating" className="text-white hover:bg-white/10">Highest Rated</SelectItem>
+                    <SelectItem value="name" className="text-white hover:bg-white/10">Name A-Z</SelectItem>
                   </SelectContent>
                 </Select>
 
                 {/* View Mode */}
-                <div className="flex bg-gray-100 rounded-lg p-1">
+                <div className="flex bg-white/10 rounded-xl p-1">
                   <Button
                     variant={viewMode === 'grid' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('grid')}
-                    className="px-3"
+                    className={`px-4 h-10 ${viewMode === 'grid' ? 'bg-purple-600 text-white' : 'text-white/80 hover:text-white hover:bg-white/10'}`}
                   >
                     <Grid className="w-4 h-4" />
                   </Button>
@@ -178,7 +197,7 @@ const Products = () => {
                     variant={viewMode === 'list' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setViewMode('list')}
-                    className="px-3"
+                    className={`px-4 h-10 ${viewMode === 'list' ? 'bg-purple-600 text-white' : 'text-white/80 hover:text-white hover:bg-white/10'}`}
                   >
                     <List className="w-4 h-4" />
                   </Button>
@@ -188,9 +207,9 @@ const Products = () => {
           </div>
 
           {/* Results Count */}
-          <div className="mb-6">
-            <p className="text-gray-600">
-              Showing {filteredProducts.length} of {allProducts.length} products
+          <div className="mb-8">
+            <p className="text-gray-400 text-lg">
+              Showing <span className="text-purple-400 font-semibold">{filteredProducts.length}</span> of <span className="text-purple-400 font-semibold">{allProducts.length}</span> products
             </p>
           </div>
 
@@ -200,25 +219,30 @@ const Products = () => {
               ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
               : 'grid-cols-1'
           }`}>
-            {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} />
+            {filteredProducts.map((product, index) => (
+              <div key={product.id} className="animate-fade-in-up" style={{animationDelay: `${index * 0.1}s`}}>
+                <ProductCard product={product} />
+              </div>
             ))}
           </div>
 
           {/* No Results */}
           {filteredProducts.length === 0 && (
-            <div className="text-center py-12">
-              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-gray-400" />
+            <div className="text-center py-16">
+              <div className="w-32 h-32 bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-white/10">
+                <Search className="w-12 h-12 text-purple-400" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-              <p className="text-gray-600 mb-4">
-                Try adjusting your search criteria or browse all products.
+              <h3 className="text-2xl font-bold text-white mb-4">No products found</h3>
+              <p className="text-gray-400 mb-8 text-lg max-w-md mx-auto">
+                Try adjusting your search criteria or browse all products to find what you're looking for.
               </p>
-              <Button onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-              }}>
+              <Button 
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                }}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 py-3 rounded-xl transform hover:scale-105 transition-all duration-300"
+              >
                 Clear Filters
               </Button>
             </div>
