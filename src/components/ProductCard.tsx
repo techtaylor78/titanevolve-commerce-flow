@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -29,8 +28,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       name: product.name,
       price: product.price,
       image: product.image,
-      category: product.category,
-      quantity: 1
+      category: product.category
     });
   };
 
