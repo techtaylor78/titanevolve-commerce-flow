@@ -19,8 +19,8 @@ const Products = () => {
     {
       id: 1,
       name: "Titan Pre-Workout Explosive",
-      price: 49.99,
-      originalPrice: 59.99,
+      price: 4999.99,
+      originalPrice: 5999.99,
       image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=500",
       category: "pre-workout",
       rating: 4.8,
@@ -29,8 +29,8 @@ const Products = () => {
     {
       id: 2,
       name: "Evolve Whey Protein Isolate",
-      price: 79.99,
-      originalPrice: 89.99,
+      price: 7999.99,
+      originalPrice: 8999.99,
       image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500",
       category: "whey-protein",
       rating: 4.9,
@@ -39,7 +39,7 @@ const Products = () => {
     {
       id: 3,
       name: "Titan Creatine Monohydrate",
-      price: 29.99,
+      price: 2999.99,
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500",
       category: "creatine",
       rating: 4.7,
@@ -48,7 +48,7 @@ const Products = () => {
     {
       id: 4,
       name: "Evolve Recovery Complex",
-      price: 39.99,
+      price: 3999.99,
       image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500",
       category: "recovery",
       rating: 4.6,
@@ -57,7 +57,7 @@ const Products = () => {
     {
       id: 5,
       name: "Titan Mass Gainer Pro",
-      price: 59.99,
+      price: 5999.99,
       image: "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=500",
       category: "mass-gainer",
       rating: 4.5,
@@ -66,8 +66,8 @@ const Products = () => {
     {
       id: 6,
       name: "Evolve BCAA Complex",
-      price: 34.99,
-      originalPrice: 39.99,
+      price: 3499.99,
+      originalPrice: 3999.99,
       image: "https://images.unsplash.com/photo-1585529688665-15ea3b3c0949?w=500",
       category: "bcaa",
       rating: 4.4,
