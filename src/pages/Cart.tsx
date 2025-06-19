@@ -74,7 +74,7 @@ const Cart = () => {
                               {item.name}
                             </h3>
                             <p className="text-sm text-gray-500 mb-2">{item.category}</p>
-                            <p className="text-xl font-bold text-gray-900">${item.price}</p>
+                            <p className="text-xl font-bold text-gray-900">₹{item.price}</p>
                           </div>
 
                           {/* Quantity Controls */}
@@ -138,23 +138,23 @@ const Cart = () => {
                   <div className="space-y-4 mb-6">
                     <div className="flex justify-between">
                       <span className="text-gray-600">Subtotal</span>
-                      <span className="font-medium">${getTotalPrice().toFixed(2)}</span>
+                      <span className="font-medium">₹{getTotalPrice().toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Shipping</span>
                       <span className="font-medium">
-                        {getTotalPrice() > 75 ? 'Free' : '$9.99'}
+                        {getTotalPrice() > 75 ? 'Free' : '₹9.99'}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tax</span>
-                      <span className="font-medium">${(getTotalPrice() * 0.08).toFixed(2)}</span>
+                      <span className="font-medium">₹{(getTotalPrice() * 0.08).toFixed(2)}</span>
                     </div>
                     <div className="border-t pt-4">
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-semibold text-gray-900">Total</span>
                         <span className="text-2xl font-bold text-gray-900">
-                          ${(getTotalPrice() + (getTotalPrice() > 75 ? 0 : 9.99) + (getTotalPrice() * 0.08)).toFixed(2)}
+                          ₹{(getTotalPrice() + (getTotalPrice() > 75 ? 0 : 9.99) + (getTotalPrice() * 0.08)).toFixed(2)}
                         </span>
                       </div>
                     </div>
@@ -163,7 +163,7 @@ const Cart = () => {
                   {getTotalPrice() < 75 && (
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                       <p className="text-sm text-blue-700">
-                        Add ${(75 - getTotalPrice()).toFixed(2)} more for free shipping!
+                        Add ₹{(75 - getTotalPrice()).toFixed(2)} more for free shipping!
                       </p>
                     </div>
                   )}

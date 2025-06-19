@@ -115,7 +115,7 @@ const Index = () => {
               {
                 icon: <Truck className="w-8 h-8" />,
                 title: "Fast Shipping",
-                description: "Free shipping on orders over $75 with same-day processing."
+                description: "Free shipping on orders over ₹75 with same-day processing."
               },
               {
                 icon: <Users className="w-8 h-8" />,

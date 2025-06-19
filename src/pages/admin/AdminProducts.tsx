@@ -107,7 +107,7 @@ const AdminProducts = () => {
                 </div>
                 <p className="text-sm text-gray-600 mb-2">{product.category}</p>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-xl font-bold">${product.price}</span>
+                  <span className="text-xl font-bold">₹{product.price}</span>
                   <span className="text-sm text-gray-600">Stock: {product.stock}</span>
                 </div>
                 <div className="flex space-x-2">
