@@ -12,8 +12,8 @@ const Index = () => {
     {
       id: 1,
       name: "Titan Pre-Workout Explosive",
-      price: 49.99,
-      originalPrice: 59.99,
+      price: 4999.99,
+      originalPrice: 5999.99,
       image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=500",
       category: "Pre Workout",
       rating: 4.8,
@@ -22,8 +22,8 @@ const Index = () => {
     {
       id: 2,
       name: "Evolve Whey Protein Isolate",
-      price: 79.99,
-      originalPrice: 89.99,
+      price: 7999.99,
+      originalPrice: 8999.99,
       image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500",
       category: "Whey Protein",
       rating: 4.9,
@@ -32,7 +32,7 @@ const Index = () => {
     {
       id: 3,
       name: "Titan Creatine Monohydrate",
-      price: 29.99,
+      price: 2999.99,
       image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500",
       category: "Creatine",
       rating: 4.7,
@@ -41,7 +41,7 @@ const Index = () => {
     {
       id: 4,
       name: "Evolve Recovery Complex",
-      price: 39.99,
+      price: 3999.99,
       image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500",
       category: "Recovery",
       rating: 4.6,
@@ -232,9 +232,10 @@ const Index = () => {
               </Button>
             </Link>
             <Link to="/register">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-900 text-lg px-8 py-4">
-                Create Account
-              </Button>
+              <Button size="lg" variant="outline" className="btn-secondary text-lg px-8 py-4">
+                  <Shield className="mr-2 w-5 h-5" />
+                  Create Account
+                </Button>
             </Link>
           </div>
         </div>
