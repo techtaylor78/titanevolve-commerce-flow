@@ -1,8 +1,10 @@
+
 import { Link } from 'react-router-dom';
-import { Star, ShoppingCart } from 'lucide-react';
+import { Star, ShoppingCart, Eye, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
+import { useState } from 'react';
 
 interface Product {
   id: number;
@@ -21,6 +23,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleAddToCart = () => {
     addToCart({
@@ -33,55 +36,90 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-      <div className="relative overflow-hidden">
+    <Card 
+      className="group relative overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 hover:border-purple-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/10 transform hover:-translate-y-2 rounded-3xl"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+      
+      {/* Image Container */}
+      <div className="relative overflow-hidden rounded-t-3xl">
         <img 
           src={product.image} 
           alt={product.name}
-          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
         />
+        
+        {/* Discount Badge */}
         {product.originalPrice && (
-          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 text-xs font-semibold rounded">
+          <div className="absolute top-4 left-4 bg-gradient-to-r from-red-500 to-pink-500 text-white px-3 py-1 text-sm font-bold rounded-full shadow-lg">
             Save ₹{(product.originalPrice - product.price).toFixed(0)}
           </div>
         )}
-      </div>
-      
-      <CardContent className="p-6">
-        <div className="mb-2">
-          <span className="text-sm text-purple-600 font-medium">{product.category}</span>
+        
+        {/* Quick Actions */}
+        <div className={`absolute top-4 right-4 flex flex-col gap-2 transition-all duration-300 ${isHovered ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'}`}>
+          <button className="w-10 h-10 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
+            <Heart className="w-4 h-4" />
+          </button>
+          <Link to={`/product/${product.id}`}>
+            <button className="w-10 h-10 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300">
+              <Eye className="w-4 h-4" />
+            </button>
+          </Link>
         </div>
         
+        {/* Category Badge */}
+        <div className="absolute bottom-4 left-4">
+          <span className="px-3 py-1 bg-purple-600/80 backdrop-blur-sm text-purple-100 text-sm font-medium rounded-full border border-purple-400/30">
+            {product.category}
+          </span>
+        </div>
+      </div>
+      
+      <CardContent className="p-6 relative z-20">
         <Link to={`/product/${product.id}`}>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-purple-600 transition-colors line-clamp-2">
+          <h3 className="text-lg font-bold text-white mb-3 hover:text-purple-300 transition-colors line-clamp-2 group-hover:text-purple-300">
             {product.name}
           </h3>
         </Link>
         
-        <div className="flex items-center mb-3">
-          <div className="flex items-center">
+        {/* Rating */}
+        <div className="flex items-center mb-4">
+          <div className="flex items-center mr-2">
             {[...Array(5)].map((_, i) => (
               <Star 
                 key={i} 
-                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-500'}`} 
               />
             ))}
           </div>
-          <span className="text-sm text-gray-500 ml-2">({product.reviews})</span>
+          <span className="text-sm text-gray-400">
+            {product.rating} ({product.reviews} reviews)
+          </span>
         </div>
         
-        <div className="flex items-center justify-between mb-4">
+        {/* Price */}
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-gray-900">₹{product.price}</span>
+            <span className="text-2xl font-bold text-white">₹{product.price}</span>
             {product.originalPrice && (
               <span className="text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
             )}
           </div>
+          {product.originalPrice && (
+            <div className="text-sm text-green-400 font-semibold">
+              {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+            </div>
+          )}
         </div>
         
+        {/* Add to Cart Button */}
         <Button 
           onClick={handleAddToCart}
-          className="w-full btn-primary group"
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 group"
         >
           <ShoppingCart className="w-4 h-4 mr-2 group-hover:animate-bounce" />
           Add to Cart
