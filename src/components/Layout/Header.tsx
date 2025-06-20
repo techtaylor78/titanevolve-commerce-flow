@@ -1,10 +1,11 @@
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, Menu, X, User, Search, Shield } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
+import SearchBar from '@/components/SearchBar';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,15 +23,15 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
             <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">T</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">TitanEvolve</span>
+            <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent whitespace-nowrap">TitanEvolve</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             <Link to="/products" className="text-white/80 hover:text-purple-400 transition-colors font-medium">
               Products
             </Link>
@@ -41,11 +42,9 @@ const Header = () => {
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 md:space-x-4">
             {/* Search */}
-            <Button variant="ghost" size="sm" className="hidden sm:flex text-white/80 hover:text-white hover:bg-white/10">
-              <Search className="w-4 h-4" />
-            </Button>
+            <SearchBar />
 
             {/* Cart */}
             <Link to="/cart" className="relative">
@@ -69,22 +68,22 @@ const Header = () => {
                 </Link>
                 {user.isAdmin && (
                   <Link to="/admin">
-                    <Button variant="outline" size="sm" className="border-purple-500/30 text-purple-300 hover:bg-purple-600/20 hover:border-purple-400/50">
+                    <Button variant="outline" size="sm" className="border-purple-500/30 text-purple-300 hover:bg-purple-600/20 hover:border-purple-400/50 text-xs">
                       Admin
                     </Button>
                   </Link>
                 )}
-                <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white/80 hover:text-white hover:bg-white/10">
+                <Button variant="ghost" size="sm" onClick={handleLogout} className="text-white/80 hover:text-white hover:bg-white/10 text-xs">
                   Logout
                 </Button>
               </div>
             ) : (
               <div className="hidden md:flex items-center space-x-2">
                 <Link to="/login">
-                  <Button variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/10">Login</Button>
+                  <Button variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/10 text-xs">Login</Button>
                 </Link>
                 <Link to="/register">
-                  <Button variant="default" size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0">
+                  <Button variant="default" size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white border-0 text-xs">
                     Sign Up
                   </Button>
                 </Link>
