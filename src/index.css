@@ -121,6 +121,102 @@
   .btn-secondary {
     @apply bg-white/10 backdrop-blur-sm border border-white/20 text-gray-800 hover:bg-white/20 font-medium px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105;
   }
+
+  /* Mobile responsive improvements */
+  @media (max-width: 768px) {
+    .mobile-padding {
+      @apply px-4;
+    }
+    
+    .mobile-text-sm {
+      @apply text-sm;
+    }
+    
+    .mobile-text-xs {
+      @apply text-xs;
+    }
+    
+    /* Reduce orb sizes on mobile */
+    .animate-float {
+      @apply w-16 h-16;
+    }
+    
+    /* Smaller cards on mobile */
+    .mobile-card-padding {
+      @apply p-4;
+    }
+    
+    /* Responsive grid fixes */
+    .mobile-grid-fix {
+      @apply grid-cols-1;
+    }
+    
+    /* Better table scrolling on mobile */
+    .mobile-table-scroll {
+      @apply overflow-x-auto;
+    }
+    
+    /* Mobile form improvements */
+    .mobile-form-spacing {
+      @apply space-y-4;
+    }
+    
+    /* Mobile button improvements */
+    .mobile-button {
+      @apply w-full py-3 px-4 text-sm;
+    }
+    
+    /* Mobile header spacing */
+    .mobile-header-spacing {
+      @apply mb-6;
+    }
+  }
+
+  /* Tablet responsive improvements */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .tablet-grid {
+      @apply grid-cols-2;
+    }
+    
+    .tablet-padding {
+      @apply px-6;
+    }
+  }
+
+  /* Desktop improvements */
+  @media (min-width: 1025px) {
+    .desktop-grid {
+      @apply grid-cols-3 lg:grid-cols-4;
+    }
+    
+    .desktop-padding {
+      @apply px-8;
+    }
+  }
+
+  /* Improved focus states for accessibility */
+  .focus-visible\:ring-purple-400:focus-visible {
+    @apply ring-2 ring-purple-400/50 ring-offset-2 ring-offset-slate-950;
+  }
+
+  /* Better hover states for touch devices */
+  @media (hover: hover) {
+    .hover-scale:hover {
+      @apply scale-105;
+    }
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  @media screen and (max-width: 768px) {
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
 }
 
 /* Custom animations */
@@ -161,4 +257,70 @@
 
 .animate-slide-in-right {
   animation: slideInRight 0.6s ease-out;
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  /* Reduce animation complexity on mobile for better performance */
+  .animate-float {
+    animation: none;
+  }
+  
+  /* Simplify gradients on mobile */
+  .bg-gradient-to-br {
+    @apply bg-slate-900;
+  }
+  
+  /* Reduce blur effects on mobile for better performance */
+  .backdrop-blur-xl {
+    @apply backdrop-blur-sm;
+  }
+  
+  /* Better spacing for mobile */
+  .space-y-8 > * + * {
+    @apply mt-6;
+  }
+  
+  .space-y-6 > * + * {
+    @apply mt-4;
+  }
+  
+  /* Mobile table improvements */
+  table {
+    @apply text-sm;
+  }
+  
+  th, td {
+    @apply px-2 py-3;
+  }
+  
+  /* Mobile card improvements */
+  .card-mobile {
+    @apply rounded-lg;
+  }
+  
+  /* Mobile button improvements */
+  .btn-mobile {
+    @apply py-3 px-4 text-sm font-medium;
+  }
+}
+
+/* Print styles */
+@media print {
+  .animate-float,
+  .animate-fade-in-up,
+  .animate-slide-in-right {
+    animation: none;
+  }
+  
+  .backdrop-blur-xl,
+  .backdrop-blur-sm {
+    backdrop-filter: none;
+  }
+  
+  .bg-gradient-to-br,
+  .bg-gradient-to-r {
+    background: white !important;
+    color: black !important;
+  }
 }

@@ -1,10 +1,10 @@
 
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Star, ShoppingCart, Heart, Shield, Truck, Award, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Heart, Shield, Star, Plus, Minus, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
 import { useCart } from '@/contexts/CartContext';
@@ -12,87 +12,112 @@ import { toast } from 'sonner';
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const { addToCart } = useCart();
 
-  // Mock product data - in real app, fetch based on ID
+  // Mock product data
   const product = {
     id: parseInt(id || '1'),
-    name: "Titan Pre-Workout Explosive",
+    name: 'TitanEvolve Pre-Workout Extreme',
     price: 49.99,
-    originalPrice: 59.99,
-    images: [
-      "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=500",
-      "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500",
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500"
-    ],
-    category: "Pre Workout",
+    originalPrice: 69.99,
+    category: 'Pre Workout',
     rating: 4.8,
-    reviews: 324,
-    description: "Unleash your potential with Titan Pre-Workout Explosive. This premium formula delivers sustained energy, enhanced focus, and explosive power to dominate your workouts.",
-    ingredients: "Caffeine Anhydrous, Beta-Alanine, Citrulline Malate, Creatine Monohydrate, Taurine, B-Vitamins Complex",
-    benefits: [
-      "Explosive energy boost",
-      "Enhanced mental focus",
-      "Increased endurance",
-      "Better muscle pumps",
-      "Zero sugar formula"
-    ],
-    instructions: "Mix 1 scoop with 8-10 oz of cold water 15-30 minutes before training. Do not exceed 2 scoops in 24 hours.",
+    reviews: 156,
     inStock: true,
-    stockCount: 47
+    images: [
+      '/placeholder.svg',
+      '/placeholder.svg',
+      '/placeholder.svg'
+    ],
+    description: 'Unleash your full potential with TitanEvolve Pre-Workout Extreme. Our scientifically formulated blend delivers explosive energy, enhanced focus, and incredible pumps to power through your most intense training sessions.',
+    ingredients: ['Caffeine Anhydrous (300mg)', 'L-Citrulline (6g)', 'Beta-Alanine (3.2g)', 'Creatine Monohydrate (3g)'],
+    benefits: ['Explosive Energy', 'Enhanced Focus', 'Incredible Pumps', 'Increased Endurance'],
+    servings: 30,
+    flavor: 'Blue Raspberry'
   };
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.images[0],
-        category: product.category
-      });
-    }
-    toast.success(`${quantity} x ${product.name} added to cart!`);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+      category: product.category
+    }, quantity);
+    toast.success(`Added ${quantity} ${product.name} to cart!`);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-950 text-white overflow-hidden">
       <Header />
       
-      <div className="pt-24 pb-12">
+      {/* Animated Background */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-900 to-black"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-600/20 via-transparent to-transparent"></div>
+        
+        {/* Floating Gradient Orbs */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-2xl animate-float"></div>
+        <div className="absolute bottom-32 right-16 w-40 h-40 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-gradient-to-br from-cyan-500/25 to-blue-500/25 rounded-full blur-2xl animate-float" style={{animationDelay: '1s'}}></div>
+      </div>
+      
+      <div className="relative z-10 pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
-          <nav className="mb-8 text-sm">
-            <Link to="/" className="text-gray-500 hover:text-purple-600">Home</Link>
-            <span className="mx-2 text-gray-400">/</span>
-            <Link to="/products" className="text-gray-500 hover:text-purple-600">Products</Link>
-            <span className="mx-2 text-gray-400">/</span>
-            <span className="text-gray-900">{product.name}</span>
-          </nav>
+          <div className="mb-8">
+            <Link 
+              to="/products" 
+              className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors mb-4"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Products
+            </Link>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-full backdrop-blur-sm">
+              <Sparkles className="w-4 h-4 text-purple-400" />
+              <span className="text-sm font-medium text-purple-300">Premium Product</span>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Product Images */}
             <div className="space-y-4">
-              <div className="aspect-square bg-white rounded-2xl overflow-hidden shadow-sm">
-                <img 
-                  src={product.images[selectedImage]} 
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10 overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                    <img 
+                      src={product.images[selectedImage]} 
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              {/* Thumbnail Images */}
               <div className="grid grid-cols-3 gap-4">
                 {product.images.map((image, index) => (
-                  <button
+                  <Card 
                     key={index}
+                    className={`cursor-pointer transition-all bg-white/5 backdrop-blur-xl border ${
+                      selectedImage === index 
+                        ? 'border-purple-400/50 ring-2 ring-purple-400/30' 
+                        : 'border-white/10 hover:border-purple-400/30'
+                    } overflow-hidden`}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-square bg-white rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index ? 'border-purple-500' : 'border-gray-200 hover:border-gray-300'
-                    }`}
                   >
-                    <img src={image} alt={`${product.name} ${index + 1}`} className="w-full h-full object-cover" />
-                  </button>
+                    <CardContent className="p-0">
+                      <div className="aspect-square bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+                        <img 
+                          src={image} 
+                          alt={`${product.name} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -100,168 +125,145 @@ const ProductDetail = () => {
             {/* Product Info */}
             <div className="space-y-6">
               <div>
-                <span className="text-sm text-purple-600 font-medium uppercase tracking-wide">
+                <Badge className="mb-3 bg-purple-600/20 text-purple-300 border-purple-500/30">
                   {product.category}
-                </span>
-                <h1 className="text-3xl font-bold text-gray-900 mt-2 mb-4">
+                </Badge>
+                <h1 className="text-3xl lg:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
                   {product.name}
                 </h1>
                 
                 {/* Rating */}
                 <div className="flex items-center space-x-2 mb-4">
-                  <div className="flex items-center">
+                  <div className="flex space-x-1">
                     {[...Array(5)].map((_, i) => (
                       <Star 
                         key={i} 
-                        className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                        className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} 
                       />
                     ))}
                   </div>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-gray-300 text-sm">
                     {product.rating} ({product.reviews} reviews)
                   </span>
                 </div>
 
                 {/* Price */}
                 <div className="flex items-center space-x-3 mb-6">
-                  <span className="text-3xl font-bold text-gray-900">${product.price}</span>
-                  {product.originalPrice && (
-                    <span className="text-xl text-gray-500 line-through">${product.originalPrice}</span>
-                  )}
-                  {product.originalPrice && (
-                    <span className="bg-red-100 text-red-800 text-sm font-medium px-2 py-1 rounded-lg">
-                      Save ${(product.originalPrice - product.price).toFixed(2)}
-                    </span>
-                  )}
+                  <span className="text-3xl font-bold text-white">₹{product.price}</span>
+                  <span className="text-xl text-gray-400 line-through">₹{product.originalPrice}</span>
+                  <Badge className="bg-red-600/20 text-red-300 border-red-500/30">
+                    Save ₹{(product.originalPrice - product.price).toFixed(2)}
+                  </Badge>
                 </div>
               </div>
 
               {/* Description */}
-              <p className="text-gray-700 leading-relaxed">
-                {product.description}
-              </p>
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-white mb-3">Description</h3>
+                  <p className="text-gray-300 leading-relaxed">{product.description}</p>
+                </CardContent>
+              </Card>
 
-              {/* Benefits */}
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-3">Key Benefits:</h3>
-                <ul className="space-y-2">
-                  {product.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-center text-gray-700">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                      {benefit}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Stock Status */}
-              <div className="flex items-center space-x-2">
-                <div className={`w-3 h-3 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                <span className={`text-sm font-medium ${product.inStock ? 'text-green-700' : 'text-red-700'}`}>
-                  {product.inStock ? `In Stock (${product.stockCount} available)` : 'Out of Stock'}
-                </span>
-              </div>
-
-              {/* Quantity & Add to Cart */}
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <span className="font-medium text-gray-900">Quantity:</span>
-                  <div className="flex items-center bg-gray-100 rounded-lg">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="w-10 h-10 p-0"
-                    >
-                      <Minus className="w-4 h-4" />
-                    </Button>
-                    <span className="w-12 text-center font-medium">{quantity}</span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setQuantity(quantity + 1)}
-                      className="w-10 h-10 p-0"
-                    >
-                      <Plus className="w-4 h-4" />
-                    </Button>
+              {/* Quantity Selector */}
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+                <CardContent className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-white font-medium">Quantity:</span>
+                      <div className="flex items-center bg-white/10 rounded-lg border border-white/20">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                          className="w-10 h-10 p-0 text-white hover:bg-white/20"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
+                        <span className="w-12 text-center font-medium text-white">{quantity}</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setQuantity(quantity + 1)}
+                          className="w-10 h-10 p-0 text-white hover:bg-white/20"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="flex space-x-3">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+                      >
+                        <Heart className="w-5 h-5" />
+                      </Button>
+                      <Button 
+                        onClick={handleAddToCart}
+                        size="lg"
+                        className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                      >
+                        <ShoppingCart className="w-5 h-5 mr-2" />
+                        Add to Cart
+                      </Button>
+                    </div>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div className="flex space-x-4">
-                  <Button 
-                    onClick={handleAddToCart}
-                    className="flex-1 btn-primary flex items-center justify-center space-x-2"
-                    disabled={!product.inStock}
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    <span>Add to Cart</span>
-                  </Button>
-                  <Button variant="outline" size="lg" className="px-4">
-                    <Heart className="w-5 h-5" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Features */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t">
-                <div className="text-center">
-                  <Shield className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-                  <p className="text-xs text-gray-600">Authenticity Verified</p>
-                </div>
-                <div className="text-center">
-                  <Truck className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-                  <p className="text-xs text-gray-600">Free Shipping $75+</p>
-                </div>
-                <div className="text-center">
-                  <Award className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-                  <p className="text-xs text-gray-600">Lab Tested</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Product Details Tabs */}
-          <div className="mt-16">
-            <Tabs defaultValue="details" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="details">Details</TabsTrigger>
-                <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
-                <TabsTrigger value="reviews">Reviews</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="details" className="mt-8">
-                <Card>
+              {/* Product Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4">Product Details</h3>
-                    <div className="space-y-4">
-                      <p className="text-gray-700">{product.description}</p>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">How to Use:</h4>
-                        <p className="text-gray-700">{product.instructions}</p>
+                    <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
+                      <Shield className="w-5 h-5 mr-2 text-purple-400" />
+                      Key Benefits
+                    </h3>
+                    <ul className="space-y-2">
+                      {product.benefits.map((benefit, index) => (
+                        <li key={index} className="text-gray-300 text-sm">• {benefit}</li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold text-white mb-3">Product Info</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Servings:</span>
+                        <span className="text-gray-300">{product.servings}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Flavor:</span>
+                        <span className="text-gray-300">{product.flavor}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Stock:</span>
+                        <span className="text-green-400">In Stock</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              </TabsContent>
-              
-              <TabsContent value="ingredients" className="mt-8">
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4">Ingredients</h3>
-                    <p className="text-gray-700">{product.ingredients}</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
-              <TabsContent value="reviews" className="mt-8">
-                <Card>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
-                    <p className="text-gray-500">Reviews feature coming soon...</p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+              </div>
+
+              {/* Ingredients */}
+              <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-white mb-3">Key Ingredients</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {product.ingredients.map((ingredient, index) => (
+                      <div key={index} className="text-gray-300 text-sm bg-white/5 rounded-lg p-3 border border-white/10">
+                        {ingredient}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
